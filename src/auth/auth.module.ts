@@ -10,6 +10,8 @@ import { PassportModule } from '@nestjs/passport';
 import { APP_GUARD } from '@nestjs/core';
 import { ThrottlerGuard } from '@nestjs/throttler';
 import { ConfigService } from '@nestjs/config';
+import { CacheModule } from '@nestjs/cache-manager';
+import { redisStore } from 'cache-manager-redis-store';
 
 @Module({
   imports: [
@@ -19,6 +21,15 @@ import { ConfigService } from '@nestjs/config';
       useFactory: (configService: ConfigService) => ({
         secret: configService.get('jwt.secretKey'),
         signOptions: { expiresIn: configService.get('jwt.expire') },
+      }),
+      inject: [ConfigService],
+    }),
+    CacheModule.registerAsync({
+      useFactory: (configService: ConfigService) => ({
+        store: redisStore as any,
+        host: configService.get('redis.host'),
+        port: configService.get('redis.port'),
+        isGlobal: true,
       }),
       inject: [ConfigService],
     }),

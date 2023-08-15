@@ -10,12 +10,10 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { SeedModule } from './seed/seed.module';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { UserModule } from './user/user.module';
+import { redisStore } from 'cache-manager-redis-store';
 
 @Module({
   imports: [
-    CacheModule.register({
-      isGlobal: true,
-    }),
     ConfigModule.forRoot({
       isGlobal: true,
       load: [configuration],
