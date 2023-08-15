@@ -1,0 +1,16 @@
+export enum UserEndPointsEnum {
+  CREATE = '/create',
+  FIND_ALL = '/list',
+  FIND_ONE = '/:id',
+  UPDATE_ADMIN = '/:id',
+  UPDATE = '/',
+  UPDATE_PASSWORD_ADMIN = '/pass/:id',
+  UPDATE_PASSWORD = '/pass',
+  REMOVE_SOFT_ADMIN = '/:id',
+  REMOVE_SOFT = '/',
+  REMOVE_HARD = '/hard/:id',
+  TOGGELE_BAN_USER = '/ban/:id',
+  WHO_AM_I = '/whoami',
+  ADD_NEW_ADMIN = '/newAdmin/:id',
+  REMOVE_ADMIN = '/removeAdmin/:id',
+}

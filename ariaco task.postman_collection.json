@@ -1,0 +1,897 @@
+{
+	"info": {
+		"_postman_id": "a1773d67-4fd1-4ccf-ae40-3d00f68fc2b5",
+		"name": "ariaco task",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26054888",
+		"_collection_link": "https://restless-station-904145.postman.co/workspace/Team-Workspace~86f327bb-bb29-4c1d-8060-d6a4ef91dadd/collection/26054888-a1773d67-4fd1-4ccf-ae40-3d00f68fc2b5?action=share&creator=26054888&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "signin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Extract new token\", function () {",
+									"    const { data: { token } } = pm.response.json();",
+									"",
+									"    pm.expect(typeof token).eql(\"string\")",
+									"",
+									"    pm.collectionVariables.set(\"token\", token)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "a5@gmail.com",
+									"description": "email | username | cell number",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Alireza1234",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/auth/signin",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "send sms code",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "cellNumber",
+									"value": "09216917499",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/auth/code?leng=en",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"code"
+							],
+							"query": [
+								{
+									"key": "leng",
+									"value": "en",
+									"description": "en | pe"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "signup",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Extract new token\", function () {",
+									"    const { data: { token } } = pm.response.json();",
+									"",
+									"    pm.expect(typeof token).eql(\"string\")",
+									"",
+									"    pm.collectionVariables.set(\"token\", token)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "alireza7",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "alireza1234",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "a7@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "cellNumber",
+									"value": "09216917490",
+									"type": "text"
+								},
+								{
+									"key": "code",
+									"value": "499659",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/auth/signup?leng=en",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"signup"
+							],
+							"query": [
+								{
+									"key": "leng",
+									"value": "en",
+									"description": "en | pe"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "forget password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "newPassword",
+									"value": "Alireza1234",
+									"description": "پسورد جدید کاربر",
+									"type": "text"
+								},
+								{
+									"key": "code",
+									"value": "468506",
+									"description": "کد ارسال شده به موبایل کاربر",
+									"type": "text"
+								},
+								{
+									"key": "cellNumber",
+									"value": "09216917499",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/auth/updatePass",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"updatePass"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Delete token\", function () {",
+									"    const { statusCode } = pm.response.json();",
+									"",
+									"    pm.expect(statusCode).eql('200')",
+									"",
+									"    pm.collectionVariables.set(\"token\", null)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/auth/signout",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"signout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "admin",
+					"item": [
+						{
+							"name": "create",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "firstname",
+											"value": "alireza",
+											"type": "text"
+										},
+										{
+											"key": "lastname",
+											"value": "mahmoudi",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "alireza4",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "alireza1234",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "a4@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "cellNumber",
+											"value": "09216917496",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/api/user/admin/create",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"admin",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "find all",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"pagination\": {\n        \"limit\": 10,\n        \"page\": 1\n    },\n    \"sort\": [{\n        \"field\": \"username\",\n        \"order\": \"asc\"\n    }],\n    \"filter\": {\n        \"search\": \"mahmoudi\",\n        \"cellNumber\": \"\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/user/admin/list",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"admin",
+										"list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "find one",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/user/admin/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"admin",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "firstname",
+											"value": "alireza",
+											"type": "text"
+										},
+										{
+											"key": "lastname",
+											"value": "mahmoudi",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "alireza3",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "a3@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "cellNumber",
+											"value": "09216917493",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/api/user/admin/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"admin",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update password",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "newPassword",
+											"value": "a12345678",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/api/user/admin/pass/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"admin",
+										"pass",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "63dd14a8bfa8158e65334a15"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "soft remove",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/user/admin/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"admin",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "hard remove",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/user/admin/hard/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"admin",
+										"hard",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "63dc03eb6ae97f54ebbb917e"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "toggele ban user",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "HEAD",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/user/admin/ban/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"admin",
+										"ban",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "63e645d070a256d09670579a"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add new admin",
+							"request": {
+								"method": "HEAD",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/user/admin/newAdmin/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"admin",
+										"newAdmin",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "63f61943c759fb85ca5e24a8"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "remove a admin",
+							"request": {
+								"method": "HEAD",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/user/admin/removeAdmin/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"admin",
+										"removeAdmin",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "63f61943c759fb85ca5e24a8"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "user",
+					"item": [
+						{
+							"name": "who am i",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/user/whoami",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"whoami"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "firstname",
+											"value": "alireza",
+											"type": "text"
+										},
+										{
+											"key": "lastname",
+											"value": "mahmoudi",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "alireza3",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "a3@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "cellNumber",
+											"value": "09216917493",
+											"type": "text"
+										},
+										{
+											"key": "howJoinUs",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "identificationUsername",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "favorites[]",
+											"value": "",
+											"description": "Array<string>",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/api/user/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update password",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "oldPassword",
+											"value": "alireza1234",
+											"type": "text"
+										},
+										{
+											"key": "newPassword",
+											"value": "a12345678",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/api/user/pass",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"pass"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "soft remove",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "password",
+											"value": "alireza1234",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/api/user",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"user"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "127.0.0.1:3050",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
